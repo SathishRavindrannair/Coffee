@@ -27,16 +27,15 @@
          android:textColorHighlight="@color/highlight"
          android:textAlignment="center" /> -->
 
-     <TextView
+      <TextView
          android:id="@+id/textView"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_above="@+id/oldqoutes"
          android:layout_centerHorizontal="true"
          android:layout_marginBottom="48dp"
          android:text="@string/hello_world"
          android:textSize="15dp" />
-
+ 
     <ImageView
         android:id="@+id/filmy"
         android:layout_width="wrap_content"
