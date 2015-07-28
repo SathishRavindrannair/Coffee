@@ -6,7 +6,8 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.coffeequotes.ListViewActivity90" >
+    android:background="@color/latestbg"
+    tools:context="com.example.coffeequotes.ListViewActivity20" >
 
  <ListView
      android:id="@+id/listView"

@@ -64,13 +64,13 @@ public class ListViewActivity90 extends Activity {
 		LinearLayout layout=(LinearLayout) headerview.findViewById(R.id.linearlayout);
 		TextView headerText=(TextView) headerview.findViewById(R.id.header);
 		headerText.setText("Welcome To Vintage Era");
-		listView.addHeaderView(headerview);
+		listView.addHeaderView(headerview,null,false);
 		
 		/********************* Footer*******************************************/
 		ViewGroup footerView=(ViewGroup) inflater.inflate(R.layout.footer, listView,false);
 		TextView footerText=(TextView) footerView.findViewById(R.id.footer);
 		footerText.setText("End");
-		listView.addFooterView(footerView);
+		listView.addFooterView(footerView,null,false);
 		
 		
 		listView.setOnItemClickListener(new OnItemClickListener() {

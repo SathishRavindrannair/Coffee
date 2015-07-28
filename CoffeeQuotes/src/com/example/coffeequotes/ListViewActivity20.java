@@ -21,7 +21,7 @@ public class ListViewActivity20 extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_list_view_activity90);
+		setContentView(R.layout.activity_list_view_actvity20);
 		HashMap<String, LeaderHelper> val=null;
 		QuotesConstants constants=QuotesConstants.getInstance();
 		if(constants.hashMap20!=null){
