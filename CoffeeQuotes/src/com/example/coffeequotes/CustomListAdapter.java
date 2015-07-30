@@ -3,6 +3,7 @@ package com.example.coffeequotes;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -81,21 +82,21 @@ public class CustomListAdapter extends BaseAdapter {
 		/* ListData list=(ListData) getItem(position); */
 		@SuppressWarnings("unchecked")
 		HashMap<String, Object> hm = (HashMap<String, Object>) getItem(position);
-		if(year.equals("2000")){
-		System.out.println("***********" + hm.get("Txt"));
-		holder.name.setText((String) hm.get("Txt"));
-		holder.active.setText((String) hm.get("Active"));
-		if (holder.imageView != null) {
-			holder.imageView.setImageBitmap((Bitmap) hm.get("thumbnail"));
-		}
-		}else if(year.equals("1960")){
+		if (year.equals("2000")) {
 			System.out.println("***********" + hm.get("Txt"));
 			holder.name.setText((String) hm.get("Txt"));
 			holder.active.setText((String) hm.get("Active"));
 			if (holder.imageView != null) {
 				holder.imageView.setImageBitmap((Bitmap) hm.get("thumbnail"));
 			}
-		}else{
+		} else if (year.equals("1960")) {
+			System.out.println("***********" + hm.get("Txt"));
+			holder.name.setText((String) hm.get("Txt"));
+			holder.active.setText((String) hm.get("Active"));
+			if (holder.imageView != null) {
+				holder.imageView.setImageBitmap((Bitmap) hm.get("thumbnail"));
+			}
+		} else {
 			System.out.println("***********" + hm.get("Txt"));
 			holder.name.setText((String) hm.get("Txt"));
 			holder.starring.setText((String) hm.get("starring"));
@@ -113,4 +114,5 @@ public class CustomListAdapter extends BaseAdapter {
 		ImageView imageView;
 		TextView starring;
 	}
+
 }

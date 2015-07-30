@@ -26,11 +26,14 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-
 /*public class ListViewActivity90 extends Activity {*/
-public class ListViewActivity90 extends ActionBarActivity implements OnQueryTextListener{
+public class ListViewActivity90 extends ActionBarActivity implements
+		OnQueryTextListener {
 	private ActionBar actionBar;
 	private ListView listView;
+	private CustomListAdapter customListAdapter;
+	List<HashMap<String, Object>> searchList;
+	private List<HashMap<String, Object>> aList;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +59,7 @@ public class ListViewActivity90 extends ActionBarActivity implements OnQueryText
 				e.printStackTrace();
 			}
 		}
-		final List<HashMap<String, Object>> aList = new ArrayList<HashMap<String, Object>>();
+		aList = new ArrayList<HashMap<String, Object>>();
 		int i = 0;
 		for (String key : val.keySet()) {
 			LeaderHelper leaderHelper = val.get(key);
@@ -70,7 +73,8 @@ public class ListViewActivity90 extends ActionBarActivity implements OnQueryText
 		}
 		listView = (ListView) findViewById(R.id.listView);
 		System.out.println("List Adapter" + aList.toString());
-		listView.setAdapter(new CustomListAdapter(this, aList, "1960"));
+		customListAdapter = new CustomListAdapter(this, aList, "1960");
+		listView.setAdapter(customListAdapter);
 		listView.setTextFilterEnabled(true);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
@@ -95,37 +99,88 @@ public class ListViewActivity90 extends ActionBarActivity implements OnQueryText
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.list_view_activity90, menu);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        SearchView searchView = (SearchView) menu.findItem(R.id.menu_item_search).getActionView();
- 
-        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        searchView.setSubmitButtonEnabled(true);
-        searchView.setOnQueryTextListener(this);
- 
-        return super.onCreateOptionsMenu(menu);
-		
+		SearchView searchView = (SearchView) menu.findItem(
+				R.id.menu_item_search).getActionView();
+
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		searchView.setSubmitButtonEnabled(true);
+		searchView.setOnQueryTextListener(this);
+
+		return super.onCreateOptionsMenu(menu);
+
 	}
+
 	@Override
-	 public boolean onQueryTextChange(String newText)
-	 {
-	  // this is your adapter that will be filtered
-	      if (TextUtils.isEmpty(newText))
-	      {
-	            listView.clearTextFilter();
-	        }
-	      else
-	      {
-	            listView.setFilterText(newText.toString());
-	        }
-	         
-	      return true;
-	 }
-	 
-	 @Override
-	 public boolean onQueryTextSubmit(String query) {
-	  // TODO Auto-generated method stub
-	  return false;
-	 }
-	 
+	public boolean onQueryTextChange(String newText) {
+		// this is your adapter that will be filtered
+		searchList=new ArrayList<HashMap<String,Object>>();
+		if (TextUtils.isEmpty(newText)) {
+			listView.clearTextFilter();
+			listView = (ListView) findViewById(R.id.listView);
+			System.out.println("List Adapter" + aList.toString());
+			customListAdapter = new CustomListAdapter(this, aList, "1960");
+			listView.setAdapter(customListAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent i = new Intent(ListViewActivity90.this,
+							FragmentMainActivity.class);
+					System.out.println("*****" + arg2 + "******"
+							+ aList.get(arg2).get("id").toString());
+					i.putExtra("id", aList.get(arg2).get("id").toString());
+					i.putExtra("year", "1960");
+					startActivity(i);
+				}
+			}
+
+			);
+		} else {
+			listView.setFilterText(newText.toString());
+			QuotesConstants constants = QuotesConstants.getInstance();
+			HashMap<String, LeaderHelper> val = constants.hashMap;
+			for (String key : val.keySet()) {
+				LeaderHelper leaderHelper = val.get(key);
+				if (leaderHelper.getLeader_name().contains(newText)) {
+					HashMap<String, Object> hm = new HashMap<String, Object>();
+					hm.put("thumbnail", (Bitmap) leaderHelper.getImage_url());
+					hm.put("Txt", leaderHelper.getLeader_name());
+					hm.put("Active", leaderHelper.getActive());
+					hm.put("id", leaderHelper.getId());
+					searchList.add(hm);
+				}
+
+			}
+			listView = (ListView) findViewById(R.id.listView);
+			System.out.println("List Adapter" + searchList.toString());
+			customListAdapter = new CustomListAdapter(this, searchList, "1960");
+			listView.setAdapter(customListAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent i = new Intent(ListViewActivity90.this,
+							FragmentMainActivity.class);
+					System.out.println("*****" + arg2 + "******"
+							+ searchList.get(arg2).get("id").toString());
+					i.putExtra("id", searchList.get(arg2).get("id").toString());
+					i.putExtra("year", "1960");
+					startActivity(i);
+				}
+			}
+
+			);
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
