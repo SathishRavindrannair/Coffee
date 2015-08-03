@@ -37,6 +37,7 @@ public class TabMainActivity extends ActionBarActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setContentView(R.layout.activity_tab_main);
 		ConnectivityClass connectivityClass = new ConnectivityClass(
 				getApplicationContext());
 		System.out.println("checkConnectivity" + connectivityClass);
@@ -67,7 +68,7 @@ public class TabMainActivity extends ActionBarActivity implements
 			loadViewTask.execute();
 		}
 
-		setContentView(R.layout.activity_tab_main);
+		
 
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
