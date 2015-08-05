@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+        <!-- <color
+            name="blue_theme">#8CB5D6</color> -->
+           <!--  <color name="blue_theme">#509893</color> -->
+             <color name="blue_theme">#506098</color>
+             <color name="highlight">#10bcc9</color>
+             <color name="latestheader">#000000</color>
+             <color name="latestheaderText">#ffffff</color>
+             <color name="vintagebg">#67584C</color>
+             <color name="latestbg">#005EC0</color>
+             <color name="myactionbar90">#f1f1f2</color>
+    </resources>
+
+    
+
