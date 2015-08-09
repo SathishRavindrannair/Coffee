@@ -15,6 +15,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
+import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -105,7 +106,7 @@ public class LisFragment extends ListFragment {
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		View layout = inflater.inflate(R.layout.popupwindow_xml,
 				(ViewGroup) view.findViewById(R.id.popup));
-		pwindo = new PopupWindow(layout, 400, 300, true);
+		pwindo = new PopupWindow(layout, LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
 	    contents=quotes[position];
 		pwindo.showAtLocation(layout, Gravity.CENTER, 0, 0);
 		TextView textView = (TextView) layout.findViewById(R.id.dialog_info);
@@ -118,26 +119,29 @@ public class LisFragment extends ListFragment {
 		});
 		Button shareContent = (Button) layout.findViewById(R.id.share_dialog);
 		shareContent.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent intent = new Intent(Intent.ACTION_SEND);
+				intent.setType("text/plain");
+				intent.putExtra(Intent.EXTRA_TEXT,contents);
+				startActivity(Intent.createChooser(intent, "Share with"));
+				
+			}
+		});
+		/*shareContent.setOnClickListener(new OnClickListener() {
 			public void onClick(View view) {
 				LayoutInflater inflater = (LayoutInflater) view.getContext()
 						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 				View layout = inflater.inflate(R.layout.sharepopup,
-						(ViewGroup) view.findViewById(R.id.sharepopup));
-				psharewindow = new PopupWindow(layout, 400, 300, true);
+						(ViewGroup) view.findViewById(R.id.tableLayout1));
+				psharewindow = new PopupWindow(layout,LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, true);
 				psharewindow.showAtLocation(layout, Gravity.CENTER, 0, 0);
 				ImageView facebook = (ImageView) layout
 						.findViewById(R.id.facebook);
 				ImageView whatsapp = (ImageView) layout
 						.findViewById(R.id.whatsapp);
-				facebook.setOnClickListener(new OnClickListener() {
-
-					@Override
-					public void onClick(View arg0) {
-						// TODO Auto-generated method stub
-						psharewindow.dismiss();
-
-					}
-				});
+				Button cancel=(Button)layout.findViewById(R.id.cancelButton);
 				whatsapp.setOnClickListener(new OnClickListener() {
 
 					@Override
@@ -157,8 +161,7 @@ public class LisFragment extends ListFragment {
 							waIntent.setPackage("com.whatsapp");
 
 							waIntent.putExtra(Intent.EXTRA_TEXT, text);
-							startActivity(Intent.createChooser(waIntent,
-									"Share with"));
+							startActivity(Intent.createChooser(waIntent,"Share with"));
 
 						} catch (NameNotFoundException e) {
 							Toast.makeText(getActivity(),
@@ -168,8 +171,45 @@ public class LisFragment extends ListFragment {
 
 					}
 				});
+				
+				facebook.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View view) {
+						PackageManager pm = getActivity().getPackageManager();
+						try {
+
+							Intent waIntent = new Intent(Intent.ACTION_SEND);
+							waIntent.setType("text/plain");
+							String text =contents;
+
+							PackageInfo info = pm.getPackageInfo("com.facebook.orca",PackageManager.GET_META_DATA);
+							// Check if package exists or not. If not then code
+							// in catch block will be called
+							waIntent.setPackage("com.facebook.orca");
+
+							waIntent.putExtra(Intent.EXTRA_TEXT, text);
+							startActivity(Intent.createChooser(waIntent,"Share with"));
+
+						} catch (NameNotFoundException e) {
+							Toast.makeText(getActivity(),
+									"WhatsApp not Installed",
+									Toast.LENGTH_SHORT).show();
+						}
+
+					}
+				});
+				cancel.setOnClickListener(new OnClickListener() {
+
+					@Override
+					public void onClick(View arg0) {
+						// TODO Auto-generated method stub
+						psharewindow.dismiss();
+
+					}
+				});
 			}
-		});
+		});*/
 
 	}
 }

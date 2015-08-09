@@ -1,28 +1,68 @@
-<RelativeLayout
+<!--
+ RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/sharepopup"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="#ffffff">
+
 <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_below="@id/dialog_info">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentTop="true"
+    android:orientation="vertical" >
 
-       <ImageView
-           android:id="@+id/facebook"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/facebook"
-           android:paddingLeft="100dp"
-           />
+    <ImageView
+        android:id="@+id/whatsapp"
+        android:layout_width="45dp"
+        android:layout_height="44dp"
+        android:src="@drawable/whatsapp" />
 
-       <ImageView
-           android:id="@+id/whatsapp"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:src="@drawable/whatsapp"
-            />
+    <ImageView
+        android:id="@+id/facebook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/facebook" />
 
-    </LinearLayout>
-    </RelativeLayout>
+    <Button
+        android:id="@+id/cancelButton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="Cancel" />
+</LinearLayout>
+
+    </RelativeLayo-->
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/tableLayout1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#ffffff" >
+
+    <TableRow>
+
+        <ImageView
+            android:id="@+id/whatsapp"
+            android:layout_width="45dp"
+            android:layout_height="44dp"
+            android:src="@drawable/whatsapp" />
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/facebook"
+            android:layout_marginRight="75dp" />
+    </TableRow>
+
+    <TableRow>
+
+        <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="110dp"
+            android:text="Cancel" />
+    </TableRow>
+
+</TableLayout>
