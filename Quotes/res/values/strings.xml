@@ -7,5 +7,6 @@
     <string name="photo">Photo</string>
     <string name="title_activity_fragment_main">FragmentMainActivity</string>
     <string name="title_activity_popup_main">PopupMainActivity</string>
+     
 
 </resources>

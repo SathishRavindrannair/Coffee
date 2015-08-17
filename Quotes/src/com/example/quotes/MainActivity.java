@@ -17,6 +17,7 @@ import android.text.Layout;
 import android.util.Log;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -44,8 +45,8 @@ public class MainActivity extends ActionBarActivity {
 		Integer[] id = { R.drawable.mahatma, R.drawable.che, R.drawable.abe };
 		String[] displayString = { "Mahatma Gandhi", "Che Guevara",
 				"Abraham Lincoln" };
-		String[] active = { "October 2,1869 - Janaury 30,1948",
-				"June 14,1928 - October 9,1967",
+		String[] active = { "सामूहिक राष्ट्रगान",
+				"வனக்கம் சென்னை",
 				"February 12,1809 - April 15,1865" };
 		RetrievieValues retrievieValues=new RetrievieValues();
 		ArrayList<Bitmap> val=null;
@@ -65,6 +66,9 @@ public class MainActivity extends ActionBarActivity {
 			HashMap<String, Object> hm = new HashMap<String, Object>();
 			hm.put("thumbnail",(Bitmap)val.get(i));
 			hm.put("Txt", displayString[i]);
+			if(i==0){
+				hm.put("Active", active[i]);
+			}
 			hm.put("Active", active[i]);
 			hm.put("id", new Integer(i).toString());
 			aList.add(hm);
