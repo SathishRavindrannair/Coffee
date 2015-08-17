@@ -10,7 +10,9 @@
              <color name="vintagebg">#67584C</color>
              <color name="latestbg">#005EC0</color>
              <color name="myactionbar90">#f1f1f2</color>
+             <color name="myactionbar20">#000000</color>
              <color name="sharepopupbg">#a1887f</color>
+             <color name="filmybg">#ffffff</color>
     </resources>
 
     

@@ -32,8 +32,9 @@ public class ListViewActivity90 extends ActionBarActivity implements
 	private ActionBar actionBar;
 	private ListView listView;
 	private CustomListAdapter customListAdapter;
-	List<HashMap<String, Object>> searchList;
+	private List<HashMap<String, Object>> searchList;
 	private List<HashMap<String, Object>> aList;
+	private SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -82,10 +83,12 @@ public class ListViewActivity90 extends ActionBarActivity implements
 					long arg3) {
 				Intent i = new Intent(ListViewActivity90.this,
 						FragmentMainActivity.class);
-				System.out.println("*****" + arg2 + "******"+ aList.get(arg2).get("id").toString());
+				System.out.println("*****" + arg2 + "******"
+						+ aList.get(arg2).get("id").toString());
 				i.putExtra("id", aList.get(arg2).get("id").toString());
 				i.putExtra("year", "1960");
 				startActivity(i);
+				finish();
 			}
 		}
 
@@ -98,8 +101,8 @@ public class ListViewActivity90 extends ActionBarActivity implements
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.list_view_activity90, menu);
 		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-		SearchView searchView = (SearchView) menu.findItem(
-				R.id.menu_item_search).getActionView();
+		searchView = (SearchView) menu.findItem(R.id.menu_item_search_90)
+				.getActionView();
 
 		searchView.setSearchableInfo(searchManager
 				.getSearchableInfo(getComponentName()));
@@ -113,8 +116,56 @@ public class ListViewActivity90 extends ActionBarActivity implements
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		// this is your adapter that will be filtered
-		searchList=new ArrayList<HashMap<String,Object>>();
-		if (TextUtils.isEmpty(newText)) {
+		/*
+		 * searchList=new ArrayList<HashMap<String,Object>>(); if
+		 * (TextUtils.isEmpty(newText)) { listView.clearTextFilter(); listView =
+		 * (ListView) findViewById(R.id.listView90);
+		 * System.out.println("List Adapter" + aList.toString());
+		 * customListAdapter = new CustomListAdapter(this, aList, "1960");
+		 * listView.setAdapter(customListAdapter);
+		 * listView.setOnItemClickListener(new OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> arg0, View arg1, int
+		 * arg2, long arg3) { Intent i = new Intent(ListViewActivity90.this,
+		 * FragmentMainActivity.class); System.out.println("*****" + arg2 +
+		 * "******"+ aList.get(arg2).get("id").toString()); i.putExtra("id",
+		 * aList.get(arg2).get("id").toString()); i.putExtra("year", "1960");
+		 * startActivity(i); } }
+		 * 
+		 * ); } else { listView.setFilterText(newText.toString());
+		 * QuotesConstants constants = QuotesConstants.getInstance();
+		 * HashMap<String, LeaderHelper> val = constants.hashMap; for (String
+		 * key : val.keySet()) { LeaderHelper leaderHelper = val.get(key); if
+		 * (leaderHelper.getLeader_name().contains(newText)) { HashMap<String,
+		 * Object> hm = new HashMap<String, Object>(); hm.put("thumbnail",
+		 * (Bitmap) leaderHelper.getImage_url()); hm.put("Txt",
+		 * leaderHelper.getLeader_name()); hm.put("Active",
+		 * leaderHelper.getActive()); hm.put("id", leaderHelper.getId());
+		 * searchList.add(hm); }
+		 * 
+		 * } listView = (ListView) findViewById(R.id.listView90);
+		 * System.out.println("List Adapter" + searchList.toString());
+		 * customListAdapter = new CustomListAdapter(this, searchList, "1960");
+		 * listView.setAdapter(customListAdapter);
+		 * listView.setOnItemClickListener(new OnItemClickListener() {
+		 * 
+		 * @Override public void onItemClick(AdapterView<?> arg0, View arg1, int
+		 * arg2, long arg3) { Intent i = new Intent(ListViewActivity90.this,
+		 * FragmentMainActivity.class); System.out.println("*****" + arg2 +
+		 * "******"+ searchList.get(arg2).get("id").toString());
+		 * i.putExtra("id", searchList.get(arg2).get("id").toString());
+		 * i.putExtra("year", "1960"); startActivity(i); } }
+		 * 
+		 * ); }
+		 */
+
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		searchList = new ArrayList<HashMap<String, Object>>();
+		if (TextUtils.isEmpty(query)) {
 			listView.clearTextFilter();
 			listView = (ListView) findViewById(R.id.listView90);
 			System.out.println("List Adapter" + aList.toString());
@@ -126,21 +177,24 @@ public class ListViewActivity90 extends ActionBarActivity implements
 						int arg2, long arg3) {
 					Intent i = new Intent(ListViewActivity90.this,
 							FragmentMainActivity.class);
-					System.out.println("*****" + arg2 + "******"+ aList.get(arg2).get("id").toString());
+					System.out.println("*****" + arg2 + "******"
+							+ aList.get(arg2).get("id").toString());
 					i.putExtra("id", aList.get(arg2).get("id").toString());
 					i.putExtra("year", "1960");
 					startActivity(i);
+					finish();
 				}
 			}
 
 			);
+			return false;
 		} else {
-			listView.setFilterText(newText.toString());
+			listView.setFilterText(query.toString());
 			QuotesConstants constants = QuotesConstants.getInstance();
 			HashMap<String, LeaderHelper> val = constants.hashMap;
 			for (String key : val.keySet()) {
 				LeaderHelper leaderHelper = val.get(key);
-				if (leaderHelper.getLeader_name().contains(newText)) {
+				if (leaderHelper.getLeader_name().contains(query)) {
 					HashMap<String, Object> hm = new HashMap<String, Object>();
 					hm.put("thumbnail", (Bitmap) leaderHelper.getImage_url());
 					hm.put("Txt", leaderHelper.getLeader_name());
@@ -149,6 +203,9 @@ public class ListViewActivity90 extends ActionBarActivity implements
 					searchList.add(hm);
 				}
 
+			}
+			if (searchList.size() == 0) {
+				searchList = aList;
 			}
 			listView = (ListView) findViewById(R.id.listView90);
 			System.out.println("List Adapter" + searchList.toString());
@@ -160,23 +217,20 @@ public class ListViewActivity90 extends ActionBarActivity implements
 						int arg2, long arg3) {
 					Intent i = new Intent(ListViewActivity90.this,
 							FragmentMainActivity.class);
-					System.out.println("*****" + arg2 + "******"+ searchList.get(arg2).get("id").toString());
+					System.out.println("*****" + arg2 + "******"
+							+ searchList.get(arg2).get("id").toString());
 					i.putExtra("id", searchList.get(arg2).get("id").toString());
 					i.putExtra("year", "1960");
 					startActivity(i);
+					finish();
 				}
 			}
 
 			);
+			listView.clearTextFilter();
+			return true;
 		}
 
-		return true;
-	}
-
-	@Override
-	public boolean onQueryTextSubmit(String query) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override

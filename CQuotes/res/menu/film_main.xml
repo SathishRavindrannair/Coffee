@@ -1,11 +1,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="com.example.coffeequotes.FilmMainActivity" >
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.cquotes.FilmMainActivity" >
 
-    <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_settings"/>
+   <item
+        android:id="@+id/menu_item_search_film"
+        app:actionViewClass="android.support.v7.widget.SearchView"
+        android:icon="@android:drawable/ic_menu_search"
+        android:iconifiedByDefault="true"
+        android:title="Search"
+        app:showAsAction="always|collapseActionView"/>
 
 </menu>

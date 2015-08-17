@@ -15,22 +15,22 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/app_name"
-            android:theme="@style/CustomActionBarTheme" >
+            android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-      <activity
+        <activity
             android:name=".ListViewActivity90"
             android:label="@string/title_activity_list_view_activity90"
-            android:theme="@style/customActionbar90"  >
+            android:theme="@style/customActionbar90" >
         </activity>
         <activity
             android:name=".ListViewActivity20"
-            android:label="@string/title_activity_list_view_actvity20" >
+            android:label="@string/title_activity_list_view_actvity20"
+            android:theme="@style/customActionbar20" >
         </activity>
         <activity
             android:name=".FragmentMainActivity"
@@ -38,10 +38,17 @@
         </activity>
         <activity
             android:name=".FilmMainActivity"
-            android:label="@string/title_activity_film_main" >
+            android:label="@string/title_activity_film_main"
+            android:theme="@style/customActionbar20" >
+        </activity>
+        <activity
+            android:theme="@style/CustomActionBarTheme" 
+            android:name=".TabMainActivity"
+            android:label="@string/title_activity_tab_main" >
         </activity>
     </application>
-<uses-permission android:name="android.permission.INTERNET" />
- <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
 </manifest>

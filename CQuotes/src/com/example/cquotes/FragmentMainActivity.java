@@ -42,5 +42,18 @@ public class FragmentMainActivity extends FragmentActivity {
                menu);
 		return true;
 	}
+	@Override
+	public void onBackPressed() {
+		Intent setIntent = null;
+		if(this.getYear().equals("1960")){
+	      setIntent = new Intent(FragmentMainActivity.this, ListViewActivity90.class);
+		}else if(this.getYear().equals("2000")){
+			setIntent = new Intent(FragmentMainActivity.this, ListViewActivity20.class);
+		}else{
+			setIntent = new Intent(FragmentMainActivity.this, FilmMainActivity.class);
+		}
+	   startActivity(setIntent);
+	   finish();
+	}
 	
 }

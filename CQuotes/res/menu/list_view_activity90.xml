@@ -1,7 +1,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context="com.example.coffeequotes.ListViewActivity90" >
+    tools:context="com.example.cquotes.ListViewActivity90" >
 
     <!--
          <item
@@ -11,7 +11,7 @@
         android:title="@string/action_settings"/>
     -->
     <item
-        android:id="@+id/menu_item_search"
+        android:id="@+id/menu_item_search_90"
         app:actionViewClass="android.support.v7.widget.SearchView"
         android:icon="@android:drawable/ic_menu_search"
         android:iconifiedByDefault="true"

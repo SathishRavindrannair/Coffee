@@ -6,9 +6,16 @@ import java.util.List;
 import java.util.concurrent.ExecutionException;
 
 import android.app.Activity;
+import android.app.SearchManager;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.widget.SearchView;
+import android.support.v7.widget.SearchView.OnQueryTextListener;
+import android.text.TextUtils;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,13 +23,21 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class FilmMainActivity extends Activity {
+public class FilmMainActivity extends  ActionBarActivity implements
+OnQueryTextListener {
+	private ActionBar actionBar;
+	private ListView listView;
+	private CustomListAdapter customListAdapter;
+	private List<HashMap<String, Object>> searchList;
+	private List<HashMap<String, Object>> aList;
+	private SearchView searchView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_film_main);
+		actionBar = getSupportActionBar();
+		actionBar.show();
 		HashMap<String, FilmyHelper> val=null;
 		QuotesConstants constants=QuotesConstants.getInstance();
 		if(constants.hashMapfilmy !=null){
@@ -41,7 +56,7 @@ public class FilmMainActivity extends Activity {
 			e.printStackTrace();
 		}
 		}
-		final List<HashMap<String,Object>> aList = new ArrayList<HashMap<String, Object>>();
+	    aList = new ArrayList<HashMap<String, Object>>();
 		for (String key:val.keySet()) {
 			FilmyHelper filmyHelper=val.get(key);
 			HashMap<String, Object> hm = new HashMap<String, Object>();
@@ -51,9 +66,10 @@ public class FilmMainActivity extends Activity {
 			hm.put("id", filmyHelper.getId());
 			aList.add(hm);
 		}
-		ListView listView = (ListView) findViewById(R.id.listViewfilm);
+		listView = (ListView) findViewById(R.id.listViewfilm);
 		System.out.println("List Adapter"+aList.toString());
-		listView.setAdapter(new CustomListAdapter(this, aList,"0000"));
+		customListAdapter=new CustomListAdapter(this, aList,"0000");
+		listView.setAdapter(customListAdapter);
 		listView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -64,6 +80,7 @@ public class FilmMainActivity extends Activity {
 				i.putExtra("id", aList.get(arg2).get("id").toString());
 				i.putExtra("year","0000");
 				startActivity(i);
+				finish();
 			}
 		}
 
@@ -74,8 +91,17 @@ public class FilmMainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
+		getMenuInflater().inflate(R.menu.film_main, menu);
+		SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+		searchView = (SearchView) menu.findItem(R.id.menu_item_search_film)
+				.getActionView();
+
+		searchView.setSearchableInfo(searchManager
+				.getSearchableInfo(getComponentName()));
+		searchView.setSubmitButtonEnabled(true);
+		searchView.setOnQueryTextListener(this);
+
+		return super.onCreateOptionsMenu(menu);
 	}
 
 	@Override
@@ -88,5 +114,82 @@ public class FilmMainActivity extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public boolean onQueryTextChange(String arg0) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean onQueryTextSubmit(String query) {
+		searchList = new ArrayList<HashMap<String, Object>>();
+		if (TextUtils.isEmpty(query)) {
+			listView.clearTextFilter();
+			listView = (ListView) findViewById(R.id.listViewfilm);
+			System.out.println("List Adapter" + aList.toString());
+			customListAdapter = new CustomListAdapter(this, aList, "0000");
+			listView.setAdapter(customListAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent i = new Intent(FilmMainActivity.this,
+							FragmentMainActivity.class);
+					System.out.println("*****" + arg2 + "******"
+							+ aList.get(arg2).get("id").toString());
+					i.putExtra("id", aList.get(arg2).get("id").toString());
+					i.putExtra("year", "0000");
+					startActivity(i);
+					finish();
+				}
+			}
+
+			);
+			return false;
+		} else {
+			listView.setFilterText(query.toString());
+			QuotesConstants constants = QuotesConstants.getInstance();
+			HashMap<String, FilmyHelper> val = constants.hashMapfilmy;
+			for (String key : val.keySet()) {
+				FilmyHelper filmyHelper = val.get(key);
+				if ((filmyHelper.getMovie_name().contains(query))||(filmyHelper.getStarring().contains(query))) {
+					HashMap<String, Object> hm = new HashMap<String, Object>();
+					hm.put("thumbnail",(Bitmap)filmyHelper.getImage_url());
+					hm.put("Txt", filmyHelper.getMovie_name());
+					hm.put("starring", filmyHelper.getStarring());
+					hm.put("id", filmyHelper.getId());
+					searchList.add(hm);
+				}
+
+			}
+			if (searchList.size() == 0) {
+				searchList = aList;
+			}
+			listView = (ListView) findViewById(R.id.listViewfilm);
+			System.out.println("List Adapter" + searchList.toString());
+			customListAdapter = new CustomListAdapter(this, searchList, "0000");
+			listView.setAdapter(customListAdapter);
+			listView.setOnItemClickListener(new OnItemClickListener() {
+				@Override
+				public void onItemClick(AdapterView<?> arg0, View arg1,
+						int arg2, long arg3) {
+					Intent i = new Intent(FilmMainActivity.this,
+							FragmentMainActivity.class);
+					System.out.println("*****" + arg2 + "******"
+							+ searchList.get(arg2).get("id").toString());
+					i.putExtra("id", searchList.get(arg2).get("id").toString());
+					i.putExtra("year", "0000");
+					startActivity(i);
+					finish();
+				}
+			}
+
+			);
+			listView.clearTextFilter();
+			return true;
+		}
+
 	}
 }
