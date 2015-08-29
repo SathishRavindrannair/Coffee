@@ -7,24 +7,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin">
 
-    <!--  <Button
-         android:id="@+id/newqoutes"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:layout_alignLeft="@+id/oldqoutes"
-         android:layout_centerVertical="true"
-         android:text="@string/newquotes"
-         android:textAlignment="center" />
-
-     <Button
-         android:id="@+id/oldqoutes"
-         android:layout_width="fill_parent"
-         android:layout_height="wrap_content"
-         android:layout_above="@+id/newqoutes"
-         android:layout_marginBottom="29dp"
-         android:text="@string/oldquotes"
-         android:textColorHighlight="@color/highlight"
-         android:textAlignment="center" /> -->
+   
 
      <TextView
          android:id="@+id/textView"

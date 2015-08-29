@@ -8,9 +8,9 @@
     <string name="newquotes">1990 to 2010\'s</string>
     <string name="title_activity_list_view_activity90">Welcome To Vintage Quotes</string>
     <string name="photo">photo</string>
-    <string name="title_activity_list_view_actvity20">ListViewActvity20</string>
+    <string name="title_activity_list_view_actvity20">Welcome To Modern Quotes</string>
     <string name="title_activity_fragment">FragmentActivity</string>
     <string name="title_activity_tab_main">Coffee Quotes</string>
-    <string name="title_activity_film_main">FilmMainActivity</string>
+    <string name="title_activity_film_main">Welcome To Film Dialogues</string>
     <string name="menu_search">Type and Search</string>
 </resources>
